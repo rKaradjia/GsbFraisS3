@@ -1,0 +1,4 @@
+services:
+#    gsb_visiteurtest.example:
+#        class: Gsb\VisiteurtestBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
