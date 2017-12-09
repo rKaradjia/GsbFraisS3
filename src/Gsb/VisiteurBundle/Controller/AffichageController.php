@@ -1,10 +1,10 @@
 <?php
 
-namespace Gsb\VisiteurtestBundle\Controller;
+namespace Gsb\VisiteurBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\HttpFoundation\Request;
 
 class AffichageController extends Controller
 {
@@ -14,7 +14,7 @@ class AffichageController extends Controller
     public function indexAction()
     {
          
-        return $this->render('GsbVisiteurtestBundle:Default:Rehane.html.twig');
+        return $this->render('GsbVisiteurBundle:Default:Rehane.html.twig');
     }
 }
 
