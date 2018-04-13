@@ -1,0 +1,32 @@
+{# empty Twig template #}
+<h2>Veuillez renseigné</h2>
+<h4>Saisir</h4>
+Jour{{form_widget(form.jour)}}
+Mois{{form_widget(form.mois)}}
+
+   Annee{{form_widget(form.annee)}}
+
+<h4>Frais au forfait</h4>
+
+Repas du midi {{form_widget(form.repasmidi)}}
+Nombre de nuite{{form_widget(form.nuite)}}
+
+Etape {{form_widget(form.etape)}}
+
+KM {{form_widget(form.km)}}
+
+<h4>Frais Hors Forfait</h4>
+
+Date {{form_widget(form.date)}}
+Libelle {{form_widget(form.libelle)}}
+Quantité {{form_widget(form.qte)}}
+
+
+<h4>Hors classification</h4>
+
+Nombre de justificatifs {{form_widget(form.nbjust)}}
+
+Montant {{form_widget(form.montant)}}
+</br></br>
+{{form_widget(form.Save)}}
+{{form_widget(form.Annuler)}}

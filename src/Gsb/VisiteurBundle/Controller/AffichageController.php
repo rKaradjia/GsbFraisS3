@@ -13,7 +13,10 @@ class AffichageController extends Controller
      */
     public function indexAction()
     {
-         
+         //@Auth/authentication/login.html.twig 
+        
+        
+        //GsbVisiteurBundle:Default:Rehane.html.twig
         return $this->render('GsbVisiteurBundle:Default:Rehane.html.twig');
     }
 }

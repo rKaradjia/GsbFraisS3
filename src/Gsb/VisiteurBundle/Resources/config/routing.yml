@@ -1,12 +1,19 @@
-gsb_visiteurtest_homepage:
+gsb_visiteur_homepage:
     path:     /
     defaults: { _controller: GsbVisiteurBundle:Default:index }
     
-rehane:
-    path: /rehane
+sucesslogin:
+    path: /login
     defaults: {_controller: GsbVisiteurBundle:Affichage:index}
     
 login:
-    path: /login
-    defaults: {_controller: GsbVisiteurBundle:Connection:afficherlogin}
+    path: /a
+    defaults: {_controller: GsbVisiteurBundle:Connection:afficher}
     
+renseigner:
+    path: /renseigner
+    defaults: {_controller: GsbVisiteurBundle:Renseigner:button}
+
+consulter:    
+    path: /consulter
+    defaults: {_controller: GsbVisiteurBundle:Consulter:button}

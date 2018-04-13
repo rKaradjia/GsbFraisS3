@@ -1,5 +1,10 @@
-gsb_visiteurtest:
+gsb_visiteur:
     resource: "@GsbVisiteurBundle/Resources/config/routing.yml"
+    prefix:   /
+
+
+gsb_comptable:
+    resource: "@GsbComptableBundle/Resources/config/routing.yml"
     prefix:   /
 
 app:
