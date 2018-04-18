@@ -29,4 +29,27 @@ class VisiteurRepository extends \Doctrine\ORM\EntityRepository
     
     
     }
+    
+    public function findUser($id,$mdp) {
+        
+        //cette fonction se base sur la recuperation du login stocké dans une variable via 
+        //l'instance de session
+        
+        $em = $this->getEntityManager();// $this->getDoctrine()->getManager();      
+//On creer la requete 
+  
+               $query = $em->createQuery(
+                   'SELECT v.id
+                    FROM GsbComptableBundle:visiteur v
+                    WHERE v.login = :login
+                    AND v.mdp = :mdp'
+                  );
+                       
+                   $query->setParameter('login', $id);
+                   $query->setParameter('mdp' , $mdp);
+                   
+                   return $query->getSingleScalarResult();;
+    
+    
+    }
 }

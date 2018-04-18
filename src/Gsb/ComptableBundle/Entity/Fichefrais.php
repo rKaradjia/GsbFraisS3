@@ -23,7 +23,7 @@ class Fichefrais
 
    /**
     * 
-    * @ORM\ManyToOne(targetEntity="Gsb\ComptableBundle\Entity\Visiteur")
+    * @ORM\ManyToOne(targetEntity="Gsb\ComptableBundle\Entity\Visiteur",cascade={"persist", "remove"})
     * @ORM\JoinColumn(nullable=false)
     */
     
@@ -59,7 +59,7 @@ class Fichefrais
 
    /**
     * 
-    * @ORM\ManyToOne(targetEntity="Gsb\ComptableBundle\Entity\Etat")
+    * @ORM\ManyToOne(targetEntity="Gsb\ComptableBundle\Entity\Etat",cascade={"persist", "remove"})
     * @ORM\JoinColumn(nullable=false)
     */
     private $idEtat;
@@ -182,7 +182,7 @@ class Fichefrais
      *
      * @return Fichefrais
      */
-    public function setIdVisiteur(\Gsb\ComptableBundle\Entity\Visiteur $idVisiteur)
+    public function setIdVisiteur(Visiteur $idVisiteur)
     {
         $this->idVisiteur = $idVisiteur;
 

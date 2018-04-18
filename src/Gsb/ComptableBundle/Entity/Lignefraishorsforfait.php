@@ -28,12 +28,7 @@ class Lignefraishorsforfait
      **/
    private $idFicheFrais;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="mois", type="string", length=6)
-     */
-    private $mois;
+   
 
     /**
      * @var string
@@ -71,30 +66,7 @@ class Lignefraishorsforfait
         return $this->id;
     }
 
-    /**
-     * Set mois
-     *
-     * @param string $mois
-     *
-     * @return Lignefraishorsforfait
-     */
-    public function setMois($mois)
-    {
-        $this->mois = $mois;
-
-        return $this;
-    }
-
-    /**
-     * Get mois
-     *
-     * @return string
-     */
-    public function getMois()
-    {
-        return $this->mois;
-    }
-
+    
     /**
      * Set libelle
      *
@@ -191,27 +163,5 @@ class Lignefraishorsforfait
         return $this->idFicheFrais;
     }
 
-    /**
-     * Set ficheFrais
-     *
-     * @param \Gsb\ComptableBundle\Entity\FicheFrais $ficheFrais
-     *
-     * @return Lignefraishorsforfait
-     */
-    public function setFicheFrais(\Gsb\ComptableBundle\Entity\FicheFrais $ficheFrais)
-    {
-        $this->FicheFrais = $ficheFrais;
-
-        return $this;
-    }
-
-    /**
-     * Get ficheFrais
-     *
-     * @return \Gsb\ComptableBundle\Entity\FicheFrais
-     */
-    public function getFicheFrais()
-    {
-        return $this->FicheFrais;
-    }
+    
 }

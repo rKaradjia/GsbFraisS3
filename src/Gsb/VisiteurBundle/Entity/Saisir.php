@@ -22,8 +22,10 @@ class Saisir
     protected $nbjust;
     protected $montant;
     protected $total;
+    protected $montantvalide;
 
-    
+
+
     public function getJour()
     {
         return $this->jour;
@@ -149,6 +151,16 @@ class Saisir
     public function setTotal($total)
     {
         $this->total = $total;
+    }
+    
+    public function getMontantvalide()
+    {
+        return $this->montantvalide;
+    }
+    
+    public function setMontantvalide($montantvalide)
+    {
+        $this->montantvalide = $montantvalide;
     }
 }
 

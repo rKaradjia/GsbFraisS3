@@ -86,6 +86,14 @@ class Visiteur
     private $typeAccount;
     
     /**
+     * @var string
+     *
+     * @ORM\Column(name="matricule", type="string", length=4, nullable=true)
+     */
+    private $matricule;
+
+    
+    /**
      * Get id
      *
      * @return int
@@ -287,95 +295,8 @@ class Visiteur
         return $this->dateEmbauche;
     }
     
-    
-    
-    
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $lignefraisforfait;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $etat;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->lignefraisforfait = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->etat = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add lignefraisforfait
-     *
-     * @param \Gsb\ComptableBundle\Entity\Lignefraisforfait $lignefraisforfait
-     *
-     * @return Visiteur
-     */
-    public function addLignefraisforfait(\Gsb\ComptableBundle\Entity\Lignefraisforfait $lignefraisforfait)
-    {
-        $this->lignefraisforfait[] = $lignefraisforfait;
-
-        return $this;
-    }
-
-    /**
-     * Remove lignefraisforfait
-     *
-     * @param \Gsb\ComptableBundle\Entity\Lignefraisforfait $lignefraisforfait
-     */
-    public function removeLignefraisforfait(\Gsb\ComptableBundle\Entity\Lignefraisforfait $lignefraisforfait)
-    {
-        $this->lignefraisforfait->removeElement($lignefraisforfait);
-    }
-
-    /**
-     * Get lignefraisforfait
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getLignefraisforfait()
-    {
-        return $this->lignefraisforfait;
-    }
-
-    /**
-     * Add etat
-     *
-     * @param \Gsb\ComptableBundle\Entity\Etat $etat
-     *
-     * @return Visiteur
-     */
-    public function addEtat(\Gsb\ComptableBundle\Entity\Etat $etat)
-    {
-        $this->etat[] = $etat;
-
-        return $this;
-    }
-
-    /**
-     * Remove etat
-     *
-     * @param \Gsb\ComptableBundle\Entity\Etat $etat
-     */
-    public function removeEtat(\Gsb\ComptableBundle\Entity\Etat $etat)
-    {
-        $this->etat->removeElement($etat);
-    }
-
-    /**
-     * Get etat
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEtat()
-    {
-        return $this->etat;
-    }
+   
 
     /**
      * Set typeAccount
@@ -399,5 +320,29 @@ class Visiteur
     public function getTypeAccount()
     {
         return $this->typeAccount;
+    }
+
+    /**
+     * Set matricule
+     *
+     * @param string $matricule
+     *
+     * @return Visiteur
+     */
+    public function setMatricule($matricule)
+    {
+        $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    /**
+     * Get matricule
+     *
+     * @return string
+     */
+    public function getMatricule()
+    {
+        return $this->matricule;
     }
 }

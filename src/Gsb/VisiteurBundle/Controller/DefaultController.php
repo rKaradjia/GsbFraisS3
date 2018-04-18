@@ -4,6 +4,7 @@ namespace Gsb\VisiteurBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 use Gsb\ComptableBundle\Entity\Visiteur;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -68,11 +69,13 @@ class DefaultController extends Controller
               
             
               if ( count($requete) == 1){
-                  
+                 /* $session = new Session();
+                  $session->start();*/
                   $session = $request->getSession();
 
                   // stocke un attribut pour la réutilisation durant une prochaine requête utilisateur
-                  $session->set('identifiant', $id);
+                  $session->set('login', $id);
+                  $session->set('mdp',$mdp);
                   
                   dump($requete);
                   dump("RESERVER");

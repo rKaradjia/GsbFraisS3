@@ -51,7 +51,7 @@ class Lignefraisforfait
      * @ORM\ManyToOne(targetEntity="Gsb\ComptableBundle\Entity\Fichefrais")
      * @ORM\JoinColumn(name="mois", referencedColumnName="mois")
      **/
-    private $mois;
+  //  private $mois;
     
 
   /* public function __construct()
@@ -231,29 +231,7 @@ class Lignefraisforfait
         return $this->idVisiteur;
     }
 
-    /**
-     * Set mois
-     *
-     * @param \Gsb\ComptableBundle\Entity\FicheFrais $mois
-     *
-     * @return Lignefraisforfait
-     */
-    public function setMois(\Gsb\ComptableBundle\Entity\FicheFrais $mois = null)
-    {
-        $this->mois = $mois;
-
-        return $this;
-    }
-
-    /**
-     * Get mois
-     *
-     * @return \Gsb\ComptableBundle\Entity\FicheFrais
-     */
-    public function getMois()
-    {
-        return $this->mois;
-    }
+   
 
     /**
      * Set idFicheFrais
