@@ -120,8 +120,8 @@ class RenseignerController extends Controller
          $etape = $form->get('etape')->getData();
          $km = $form->get('km')->getData();
          $dateHorsForfait = $form->get('date')->getData();/////////////////Test des differentes manières de creer une datetime
-         /*var_dump("Date recuperer du formulaire   "   .$dateHorsForfait);
-         $dateTime = new \DateTime($dateHorsForfait);*/
+         var_dump($dateHorsForfait);
+         //$dateTime = new \DateTime($dateHorsForfait);*/
         // var_dump("Date tranformé issu du formulaire "   .$dateTime);      ////////////END////////////
          $libelle = $form->get('libelle')->getData();
          $montant = $form->get('montant')->getData();
@@ -163,16 +163,18 @@ class RenseignerController extends Controller
         
         
                 $fichefrais = new Fichefrais();
-                $fichefrais->setMois('07');
+                $fichefrais->setMois($mois);
                 $fichefrais->setNbJustificatif($nbjust);
                 $fichefrais->setMontantValide($montant); 
-                $dateString = $jour.'.'.$mois.'.'.$annee;
+                $dateString = $annee.'-'.$mois.'-'.$jour;
        // $fichefrais->setDateModif(\DateTime::createFromFormat('d.m.Y', $dateString)->format('Y-m-d'));
+                $date = \DateTime::createFromFormat('Y-m-d', $dateString);
        // $fichefrais->setDateModif($date);       
                 $etat = $etatrepo ->find(3); 
                 $fichefrais->setIdEtat($etat);
                 $fichefrais->setIdVisiteur($unvisiteur);         
                 $fichefrais->setMontantValide($montantvalide);
+                $fichefrais->setDateModif($date);
 
         
         
@@ -209,7 +211,7 @@ class RenseignerController extends Controller
         var_dump('var dump LIBELLE '.$libelle);
         $lignefraishorsforfait->setMontant($montant);
         $lignefraishorsforfait->setIdFicheFrais($fichefrais);
-        //$lignefraishorsforfait->setDate($dateTime/*$dateHorsForfait*/);
+        $lignefraishorsforfait->setDate($dateHorsForfait);
             
         
         $em->persist($fichefrais);     
