@@ -41,44 +41,26 @@ class RenseignerController extends Controller
 
     // On ajoute les champs de l'entité que l'on veut ajouter à notre formulaire
          
+          
+          $currentDateForm = date('Y/m/d');
+         $date_exploseeForm = explode("/", $currentDateForm);
+ 
+        $getannee = $date_exploseeForm[0];
+        $getmois = $date_exploseeForm[1];
+        $getjour = $date_exploseeForm[2];
+          
+          
          $formBuilder
                  
-                         ->add('jour', ChoiceType::class, array(
-    'choices'  => array(
-        '01' => 01,
-        '05' => 05,          //LISTE DEROULANTE
-        '10' => 10,
-        '15' => 15,
-        '20' => 20,
-        '25' => 25,
-        '30' => 30,
-        '31' => 31,
-    ),
-))
+                         
 			 ->add('mois',  ChoiceType::class, array(
     'choices'  => array(
-        '01' => 01,
-        '02' => 02,
-        '03' => 03,
-        '04' => 04,
-        '05' => 05,
-        '06' => 06,
-        '07' => 07,
-        '08' => 08,
-        '09' => 09,
-        '10' => 10,
-        '11' => 10,
-        '12' => 12,
+        $getmois => $getmois,
     ),
 ))
                          ->add('annee',   ChoiceType::class, array(
     'choices'  => array(
-        '2013' => 2013,
-        '2014' => 2014,
-        '2015' => 2015,
-        '2016' => 2016,
-        '2017' => 2017,
-        '2018' => 2018,
+        $getannee=>$getannee,
         
     ),
 ))
@@ -104,56 +86,78 @@ class RenseignerController extends Controller
 
      if ($form->isSubmitted()) {
           
-          var_dump('apres le submit et avant le isvalid');
+         var_dump('apres le submit et avant le isvalid');
  
           
       // On vérifie que les valeurs entrées sont correctes
       // (Nous verrons la validation des objets en détail dans le prochain chapitre)
-
+         $currentDate = date('Y/m/d');
+         $date_explosee = explode("/", $currentDate);
+ 
+        $getannee = $date_explosee[0];
+        $getmois = $date_explosee[1];
+        $getjour = $date_explosee[2];
+        echo $getjour;
+        echo 'Le formulaire est il valide ' .$form->isValid();
          if ($form->isValid()) {
        //recuperation de toutes les valeurs saisies par l'utilisateur
-         $jour = $form->get('jour')->getData();
+         $jour = $getjour;
          $mois = $form->get('mois')->getData();
          $annee = $form->get('annee')->getData();
-         $repasmidi = $form->get('repasmidi')->getData();
-         $nuite = $form->get('nuite')->getData();
-         $etape = $form->get('etape')->getData();
-         $km = $form->get('km')->getData();
-         $dateHorsForfait = $form->get('date')->getData();/////////////////Test des differentes manières de creer une datetime
-         var_dump($dateHorsForfait);
+         
+         //CAHIER DES CHARGES
+         if($jour<10){
+             $mois=$mois-1;
+             if($mois=0){
+                 $mois=12;
+                 $annee=$annee-1;
+             }
+         }
+         
+         $numDays = cal_days_in_month(CAL_GREGORIAN, $mois, $annee);
+         //$numDaysSuiv = cal_days_in_month(CAL_GREGORIAN, $mois+1 , $annee);
+         
+         if ($numDays>$jour){
+         
+                $repasmidi = $form->get('repasmidi')->getData();
+                $nuite = $form->get('nuite')->getData();
+                $etape = $form->get('etape')->getData();
+                $km = $form->get('km')->getData();
+                $dateHorsForfait = $form->get('date')->getData();/////////////////Test des differentes manières de creer une datetime
+                 var_dump($dateHorsForfait);
          //$dateTime = new \DateTime($dateHorsForfait);*/
         // var_dump("Date tranformé issu du formulaire "   .$dateTime);      ////////////END////////////
-         $libelle = $form->get('libelle')->getData();
-         $montant = $form->get('montant')->getData();
-         $nbjust = $form->get('nbjust')->getData();
-         $montantvalide = $form->get('montantvalide')->getData();
+                $libelle = $form->get('libelle')->getData();
+                $montant = $form->get('montant')->getData();
+                $nbjust = $form->get('nbjust')->getData();
+                $montantvalide = $form->get('montantvalide')->getData();
         
-         var_dump('Contenu des champs ' . $jour . '' . $mois . ' ' . $nuite);
+                var_dump('Contenu des champs ' . $jour . '' . $mois . ' ' . $nuite);
          
 //recuperation des valeurs de session
-         $session = $request->getSession();
+                $session = $request->getSession();
          
-         $login=$session->get('login');
-         $mdp=$session->get('mdp');
+                $login=$session->get('login');
+                $mdp=$session->get('mdp');
          
-         var_dump("Recuperation des données dans la variable de session " . $login);
-         var_dump($mdp);
+                var_dump("Recuperation des données dans la variable de session " . $login);
+                var_dump($mdp);
          
  //on recupere l'identifiant du visiteur        
-         $repo = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Visiteur');     
-         $requete = $repo->findUser($login,$mdp);
-         $intrequete = (int)$requete;
+                 $repo = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Visiteur');     
+                $requete = $repo->findUser($login,$mdp);
+                $intrequete = (int)$requete;
 // Recherche d'un tuple par numéro d'id 
-         $unvisiteur = $repo->find($intrequete);
+                $unvisiteur = $repo->find($intrequete);
     
 //recuperation du repository des fraisforfait et etat ils seront utilisés pour l'enregistrement de la fiche et des ligneFraisForfait
-         $fraisforfaitrepo = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:FraisForfait');  
-         $etatrepo = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Etat');   
+                $fraisforfaitrepo = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:FraisForfait');  
+                $etatrepo = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Etat');   
          
          
          
         //  ENCLENCHEMENT DE LA PROCEDURE DE L ENREGISTREMENT DE LA NOUVELLE FICHE FRAIS
-        $em = $this->getDoctrine()->getManager();
+                $em = $this->getDoctrine()->getManager();
        
          
         //  DEBUT DE L INSERTION DECALAGE A DROITE 1 TABLE SUR 2---->REPERAGE
@@ -162,70 +166,74 @@ class RenseignerController extends Controller
         
         
         
-                $fichefrais = new Fichefrais();
-                $fichefrais->setMois($mois);
-                $fichefrais->setNbJustificatif($nbjust);
-                $fichefrais->setMontantValide($montant); 
-                $dateString = $annee.'-'.$mois.'-'.$jour;
+                        $fichefrais = new Fichefrais();
+                        $fichefrais->setMois($mois);
+                        $fichefrais->setNbJustificatif($nbjust);
+                        $fichefrais->setMontantValide($montant); 
+                        $dateString = $annee.'-'.$mois.'-'.$jour;
        // $fichefrais->setDateModif(\DateTime::createFromFormat('d.m.Y', $dateString)->format('Y-m-d'));
-                $date = \DateTime::createFromFormat('Y-m-d', $dateString);
+                        $date = \DateTime::createFromFormat('Y-m-d', $dateString);
        // $fichefrais->setDateModif($date);       
-                $etat = $etatrepo ->find(3); 
-                $fichefrais->setIdEtat($etat);
-                $fichefrais->setIdVisiteur($unvisiteur);         
-                $fichefrais->setMontantValide($montantvalide);
-                $fichefrais->setDateModif($date);
+                        $etat = $etatrepo ->find(3); 
+                        $fichefrais->setIdEtat($etat);
+                        $fichefrais->setIdVisiteur($unvisiteur);         
+                        $fichefrais->setMontantValide($montantvalide);
+                        $fichefrais->setDateModif($date);
 
         
         
-        $lignefraisforfait4 = new Lignefraisforfait();
-        $lignefraisforfait4->setQuantite($repasmidi);  
-        $lefraisforfait4 = $fraisforfaitrepo ->find(4); 
-        $lignefraisforfait4->setLesfraisforfait($lefraisforfait4);
-        $lignefraisforfait4->setIdFicheFrais($fichefrais);
+                $lignefraisforfait4 = new Lignefraisforfait();
+                $lignefraisforfait4->setQuantite($repasmidi);  
+                $lefraisforfait4 = $fraisforfaitrepo ->find(4); 
+                $lignefraisforfait4->setLesfraisforfait($lefraisforfait4);
+                $lignefraisforfait4->setIdFicheFrais($fichefrais);
    
         
         
-                $lignefraisforfait3 = new Lignefraisforfait();
-                $lignefraisforfait3->setQuantite($nuite);  
-                $lefraisforfait3 = $fraisforfaitrepo ->find(3);        
-                $lignefraisforfait3->setLesfraisforfait($lefraisforfait3);
-                $lignefraisforfait3->setIdFicheFrais($fichefrais);
+                        $lignefraisforfait3 = new Lignefraisforfait();
+                        $lignefraisforfait3->setQuantite($nuite);  
+                        $lefraisforfait3 = $fraisforfaitrepo ->find(3);        
+                        $lignefraisforfait3->setLesfraisforfait($lefraisforfait3);
+                        $lignefraisforfait3->setIdFicheFrais($fichefrais);
         
-        $lignefraisforfait1 = new Lignefraisforfait();
-        $lignefraisforfait1->setQuantite($etape);
-        $lefraisforfait1 = $fraisforfaitrepo ->find(1);       
-        $lignefraisforfait1->setLesfraisforfait($lefraisforfait1);
-        $lignefraisforfait1->setIdFicheFrais($fichefrais);
+                $lignefraisforfait1 = new Lignefraisforfait();
+                $lignefraisforfait1->setQuantite($etape);
+                $lefraisforfait1 = $fraisforfaitrepo ->find(1);       
+                $lignefraisforfait1->setLesfraisforfait($lefraisforfait1);
+                $lignefraisforfait1->setIdFicheFrais($fichefrais);
         
-                $lignefraisforfait2 = new Lignefraisforfait();
-                $lignefraisforfait2->setQuantite($km);
-                $lefraisforfait2 = $fraisforfaitrepo ->find(2);       
-                $lignefraisforfait2->setLesfraisforfait($lefraisforfait2);
-                $lignefraisforfait2->setIdFicheFrais($fichefrais);
+                        $lignefraisforfait2 = new Lignefraisforfait();
+                        $lignefraisforfait2->setQuantite($km);
+                        $lefraisforfait2 = $fraisforfaitrepo ->find(2);       
+                        $lignefraisforfait2->setLesfraisforfait($lefraisforfait2);
+                        $lignefraisforfait2->setIdFicheFrais($fichefrais);
         
         
-        $lignefraishorsforfait = new Lignefraishorsforfait();
+                $lignefraishorsforfait = new Lignefraishorsforfait();
 
-        $lignefraishorsforfait->setLibelle($libelle);
-        var_dump('var dump LIBELLE '.$libelle);
-        $lignefraishorsforfait->setMontant($montant);
-        $lignefraishorsforfait->setIdFicheFrais($fichefrais);
-        $lignefraishorsforfait->setDate($dateHorsForfait);
+                $lignefraishorsforfait->setLibelle($libelle);
+                var_dump('var dump LIBELLE '.$libelle);
+                $lignefraishorsforfait->setMontant($montant);
+                $lignefraishorsforfait->setIdFicheFrais($fichefrais);
+                $lignefraishorsforfait->setDate($dateHorsForfait);
             
         
-        $em->persist($fichefrais);     
-        $em->persist($lignefraisforfait1);
-        $em->persist($lignefraisforfait2);
-        $em->persist($lignefraisforfait3);
-        $em->persist($lignefraisforfait4);
-        $em->persist($lignefraishorsforfait);
-        $em->flush();
+                $em->persist($fichefrais);     
+                $em->persist($lignefraisforfait1);
+                $em->persist($lignefraisforfait2);
+                $em->persist($lignefraisforfait3);
+                $em->persist($lignefraisforfait4);
+                $em->persist($lignefraishorsforfait);
+                $em->flush();
                   
         
        //return $this->redirectToRoute('sucesslogin');  Désactiver pour l'instant
+               } else {
+                   
                   
-              }
+                   
+               }   
+           }
            
         // }
      }

@@ -1,2 +1,9 @@
-{# empty Twig template #}
-hello consulter
+{{ form_start(form) }}
+
+<h2>Veuillez renseigné</h2>
+<h4>Saisir</h4>
+mois{{form_widget(form.mois)}}
+annee{{form_widget(form.annee)}}
+
+{{form_widget(form.Save)}}
+{{ form_end(form) }}

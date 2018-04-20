@@ -1,10 +1,15 @@
-{# empty Twig template #}
+ <ul>
+  <li><a href="default.asp">Modification de fiche(s)</a></li>
+  <li><a href="news.asp">Creation d'une nouvelle fiche</a></li>
+  <li><a href="contact.asp">Contact</a></li>
+  <li><a href="about.asp">About</a></li>
+</ul> 
 
 {{ form_start(form) }}
-
-<h2>Veuillez renseigné</h2>
+<h1>Bienvenue dans la gestion des frais</h1>
+<h2>Creation d'une nouvelle fiche</h2>
 <h4>Saisir</h4>
-Jour{{form_widget(form.jour)}}
+
 Mois{{form_widget(form.mois)}}
 
    Annee{{form_widget(form.annee)}}
@@ -21,6 +26,8 @@ Etape* {{form_widget(form.etape)}}
 KM* {{form_widget(form.km)}}
 
 <h4>Frais Hors Forfait</h4>
+
+
 
 Date {{form_widget(form.date)}}
 Libelle {{form_widget(form.libelle)}}
