@@ -48,7 +48,7 @@ class VisiteurRepository extends \Doctrine\ORM\EntityRepository
                    $query->setParameter('login', $id);
                    $query->setParameter('mdp' , $mdp);
                    
-                   return $query->getSingleScalarResult();;
+                   return $query->getSingleScalarResult();
     
     
     }

@@ -1,7 +1,12 @@
 <?php
 
 namespace Gsb\ComptableBundle\Repository;
-
+use Gsb\ComptableBundle\Entity\Fichefrais;
+use Gsb\ComptableBundle\Entity\Lignefraisforfait;
+use Gsb\ComptableBundle\Entity\Lignefraishorsforfait;
+use Gsb\ComptableBundle\Entity\Etat;
+use Gsb\ComptableBundle\Entity\Visiteur;
+use Gsb\ComptableBundle\Entity\FraisForfait;
 /**
  * FichefraisRepository
  *
@@ -32,7 +37,104 @@ class FichefraisRepository extends \Doctrine\ORM\EntityRepository
                      $query->setParamater('idetat',3);
                    
                    return $query->getScalarResult();
+
+    }
+    
+    public function findFiche($mois,$annee,$idVisiteur,$repasmidi,$nuite,$etape,$km) {
+        $em = $this->getEntityManager();// $this->getDoctrine()->getManager();
+       /* $repoFicheFrais = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Fichefrais');  
+        $lefraisforfait4 = $fraisforfaitrepo ->find(4); 
+        $lignefraisforfait4->setLesfraisforfait($lefraisforfait4);
+        */
+        
+        $query = $em->createQuery(
+                   'SELECT f.id
+                    FROM GsbComptableBundle:fichefrais f
+                    WHERE f.idVisiteur = :identifiant
+                    AND f.mois = :mois
+                    AND f.annee = :annee'
+                  );
+                    $query->setParameter('identifiant', $idVisiteur);
+                    $query->setParameter('mois' , $mois);
+                    $query->setParameter('annee' , $annee);
+                    
+                    $nbLigne = $query->getSingleScalarResult();
+                    $intrequete = (int)$nbLigne;
+                    
+                    var_dump("Identifiant de la fiche recherche di TROUVE " .$intrequete);
+            //$fichefrais = new \Gsb\ComptableBundle\Entity\Fichefrais
+        
+        
+                    
+                    if (count($nbLigne) == 1 ) {
+                       
+                       /* $q = $qb->update('GsbComptableBundle\Lignefraisforfait', 'l')
+        ->set('l.quantite', '?1')
+        ->where('u.idfiche = ?3')
+        ->and('u.fiche', '?2')
+        ->setParameter(1, $etape)
+        ->setParameter(2, $intrequete)
+        ->setParameter(3, $intrequete)
+        ->getQuery();
+$p = $q->execute();*/
+                        
+                            $query = $em->createQuery(
+                            'UPDATE GsbComptableBundle:Lignefraisforfait l
+                            SET l.quantite = :quantite
+                            WHERE l.idFicheFrais = :fiche
+                            AND l.lesfraisforfait  = :numligne'
+                            );
+                             $query->setParameter('quantite', $etape);
+                             $query->setParameter('fiche' , $intrequete);
+                             $query->setParameter('numligne' , 1);
+                        
+                             $query->execute();
+                             
+                             var_dump($query->execute());
+                             
+                            $query2 = $em->createQuery(
+                            'UPDATE GsbComptableBundle:Lignefraisforfait l
+                            SET l.quantite = :quantite
+                            WHERE l.idFicheFrais = :fiche
+                            AND l.lesfraisforfait  = :numligne'
+                            );
+                             $query2->setParameter('quantite', $km);
+                             $query2->setParameter('fiche' , $intrequete);
+                             $query2->setParameter('numligne' , 2);
+                            
+                             $query2->execute();
+                             
+                             $query3 = $em->createQuery(
+                            'UPDATE GsbComptableBundle:Lignefraisforfait l
+                            SET l.quantite = :quantite
+                            WHERE l.idFicheFrais = :fiche
+                            AND l.lesfraisforfait  = :numligne'
+                            );
+                             $query3->setParameter('quantite', $nuite);
+                             $query3->setParameter('fiche' , $intrequete);
+                             $query3->setParameter('numligne' , 3);
+                             
+                             $query3->execute();
+                             
+                             $query4 = $em->createQuery(
+                            'UPDATE GsbComptableBundle:Lignefraisforfait l
+                            SET l.quantite = :quantite
+                            WHERE l.idFicheFrais = :fiche
+                            AND l.lesfraisforfait  = :numligne'
+                            );
+                             $query4->setParameter('quantite', $repasmidi);
+                             $query4->setParameter('fiche' , $intrequete);
+                             $query4->setParameter('numligne' , 4);
+                             
+                             $query4->execute();
+                             
+                            return TRUE;
+                    
+                    }
+                    
+                    return FALSE;
     
     
     }
+    
 }

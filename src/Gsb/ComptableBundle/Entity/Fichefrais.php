@@ -24,7 +24,7 @@ class Fichefrais
    /**
     * 
     * @ORM\ManyToOne(targetEntity="Gsb\ComptableBundle\Entity\Visiteur",cascade={"persist", "remove"})
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(name="idVisiteur", referencedColumnName="id")
     */
     
    private $idVisiteur;
@@ -35,6 +35,14 @@ class Fichefrais
      * @ORM\Column(name="mois", type="string", length=6)
      */
     private $mois;
+    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="annee", type="string", length=6)
+     */
+    private $annee;
 
     /**
      * @var int
@@ -221,5 +229,29 @@ class Fichefrais
     public function getIdEtat()
     {
         return $this->idEtat;
+    }
+
+    /**
+     * Set annee
+     *
+     * @param string $annee
+     *
+     * @return Fichefrais
+     */
+    public function setAnnee($annee)
+    {
+        $this->annee = $annee;
+
+        return $this;
+    }
+
+    /**
+     * Get annee
+     *
+     * @return string
+     */
+    public function getAnnee()
+    {
+        return $this->annee;
     }
 }
