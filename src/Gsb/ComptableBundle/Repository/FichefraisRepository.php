@@ -64,24 +64,20 @@ class FichefraisRepository extends \Doctrine\ORM\EntityRepository
                     var_dump("Identifiant de la fiche recherche di TROUVE " .$intrequete);
             //$fichefrais = new \Gsb\ComptableBundle\Entity\Fichefrais
         
-        
+               
                     
-                    if (count($nbLigne) == 1 ) {
-                       
-                       /* $q = $qb->update('GsbComptableBundle\Lignefraisforfait', 'l')
-        ->set('l.quantite', '?1')
-        ->where('u.idfiche = ?3')
-        ->and('u.fiche', '?2')
-        ->setParameter(1, $etape)
-        ->setParameter(2, $intrequete)
-        ->setParameter(3, $intrequete)
-        ->getQuery();
-$p = $q->execute();*/
+                    if (count($nbLigne) == 1 ) {  //si on recupere un identifiant on met a jour les données
+                        
+                        
+                        //MISE A JOUR  des lignes frais forfait
+                        
+                        //ATTENTION les noms des colonnes correspondent a ceux de l'entité 
+                        //pas à la base de données
                         
                             $query = $em->createQuery(
                             'UPDATE GsbComptableBundle:Lignefraisforfait l
                             SET l.quantite = :quantite
-                            WHERE l.idFicheFrais = :fiche
+                            WHERE l.idFicheFrais = :fiche    
                             AND l.lesfraisforfait  = :numligne'
                             );
                              $query->setParameter('quantite', $etape);

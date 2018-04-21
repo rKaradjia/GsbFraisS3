@@ -1,4 +1,10 @@
-
+<style>
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+</style>
 <body>
 <ul>
   <li><a href="default.asp">Modification de fiche(s)</a></li>
@@ -7,11 +13,19 @@
   <li><a href="about.asp">About</a></li>
 </ul> 
 
+    
+  
 {{ form_start(form) }}
 <h1>Bienvenue dans la gestion des frais</h1>
 <h2>Creation d'une nouvelle fiche</h2>
 <h4>Saisir</h4>
-
+{% if app.session.flashBag.has('success') %}
+        <div class="alert-success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
 <h5>Important : vous ne pouvez de fiche que pour le mois courant ou pour le mois précedent
  tant que le jour 10 n'a pas été atteind</h5>
 

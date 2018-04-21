@@ -160,15 +160,15 @@ class RenseignerController extends Controller
                      $montant = $form->get('montant')->getData();
                      $nbjust = $form->get('nbjust')->getData();
                      $montantvalide = $form->get('montantvalide')->getData();
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////      
+       
                     var_dump('Contenu des champs ' . $jour . '' . $mois . ' ' . $nuite);
                     $repoFicheFrais = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Fichefrais');     
                     $requete = $repoFicheFrais->findFiche($mois,$annee,$unvisiteur,$repasmidi,$nuite,$etape,$km);
                     
                     
-                    if($requete == false){
+                    if($requete == false){    // si la fiche est inuexistante alors on la creer 
                     
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //recuperation du repository des fraisforfait et etat ils seront utilisés pour l'enregistrement de la fiche et des ligneFraisForfait
                             $fraisforfaitrepo = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:FraisForfait');  
                             $etatrepo = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Etat');   
@@ -246,9 +246,16 @@ class RenseignerController extends Controller
                                 $em->persist($lignefraishorsforfait);
                                 $em->flush();
                   
-        
+                               $request->getSession()
+                            ->getFlashBag()
+                            ->add('success', 'Votre fiche a été creer');
        //return $this->redirectToRoute('sucesslogin');  Désactiver pour l'instant
                          }
+                         
+                         $request->getSession()
+                            ->getFlashBag()
+                            ->add('success', 'Votre fiche a été mise a jour');
+                         
                      }
            
             }
