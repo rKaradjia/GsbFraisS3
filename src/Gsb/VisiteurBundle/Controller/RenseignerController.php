@@ -163,7 +163,7 @@ class RenseignerController extends Controller
        
                     var_dump('Contenu des champs ' . $jour . '' . $mois . ' ' . $nuite);
                     $repoFicheFrais = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Fichefrais');     
-                    $requete = $repoFicheFrais->findFiche($mois,$annee,$unvisiteur,$repasmidi,$nuite,$etape,$km);
+                    $requete = $repoFicheFrais->isexist($mois,$annee,$unvisiteur,$repasmidi,$nuite,$etape,$km);
                     
                     
                     if($requete == false){    // si la fiche est inuexistante alors on la creer 
@@ -250,12 +250,12 @@ class RenseignerController extends Controller
                             ->getFlashBag()
                             ->add('success', 'Votre fiche a été creer');
        //return $this->redirectToRoute('sucesslogin');  Désactiver pour l'instant
-                         }
+                         }else {
                          
                          $request->getSession()
                             ->getFlashBag()
                             ->add('success', 'Votre fiche a été mise a jour');
-                         
+                         }
                      }
            
             }

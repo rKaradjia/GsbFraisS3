@@ -40,7 +40,7 @@ class FichefraisRepository extends \Doctrine\ORM\EntityRepository
 
     }
     
-    public function findFiche($mois,$annee,$idVisiteur,$repasmidi,$nuite,$etape,$km) {
+    public function isexist($mois,$annee,$idVisiteur,$repasmidi,$nuite,$etape,$km) {
         $em = $this->getEntityManager();// $this->getDoctrine()->getManager();
        /* $repoFicheFrais = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Fichefrais');  
         $lefraisforfait4 = $fraisforfaitrepo ->find(4); 
@@ -58,7 +58,7 @@ class FichefraisRepository extends \Doctrine\ORM\EntityRepository
                     $query->setParameter('mois' , $mois);
                     $query->setParameter('annee' , $annee);
                     
-                    $nbLigne = $query->getSingleScalarResult();
+                    $nbLigne = $query->getScalarResult();
                     $intrequete = (int)$nbLigne;
                     
                     var_dump("Identifiant de la fiche recherche di TROUVE " .$intrequete);
@@ -133,4 +133,53 @@ class FichefraisRepository extends \Doctrine\ORM\EntityRepository
     
     }
     
+    
+    
+    public function findFiche($mois,$annee,$idVisiteur) {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+                   'SELECT f
+                    FROM GsbComptableBundle:FicheFrais f
+                    WHERE f.idVisiteur = :identifiant
+                    AND f.mois = :mois
+                    AND f.annee=:annee'
+                  );
+                       
+                   $query->setParameter('identifiant', $idVisiteur);
+                   $query->setParameter('mois' , $mois);
+                   $query->setParameter('annee' , $annee);
+                   
+                   $requetefiche=$query->execute();
+                  
+                    
+                    return $requetefiche;
+    }
+    public function findidFiche($mois,$annee,$idVisiteur) {
+        
+        $test = (string)$idVisiteur;
+        var_dump('Trouver l identifiant de la fiche ' . $mois . ' ' . $annee . ' ' .$test);
+        
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+                   'SELECT f.id
+                    FROM GsbComptableBundle:FicheFrais f
+                    WHERE f.idVisiteur = :identifiant
+                    AND f.mois = :mois
+                    AND f.annee=:annee'
+                  );
+                       
+                   $query->setParameter('identifiant', $idVisiteur);
+                   $query->setParameter('mois' , '04');
+                   $query->setParameter('annee' , $annee);
+                   
+                   $requetefiche=$query->getSingleScalarResult();
+                   
+                   var_dump($requetefiche);
+                       
+                    $intrequetefiche = (int)$requetefiche;
+                    $repofiche = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Fichefrais');
+                    $return = $repofiche->find($intrequetefiche);
+                    
+                    return $return;
+    }
 }

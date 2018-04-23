@@ -38,7 +38,7 @@ class ConsulterController extends Controller
           
             $monthleight = 13;
             $tab = array();
-            for($i=1;$i < $monthleight;$i++)
+            for($i=01;$i < $monthleight;$i++)
                 {
             $tab[$i] = $i;
                 } 
@@ -98,8 +98,8 @@ class ConsulterController extends Controller
                     $login=$session->get('login');
                     $mdp=$session->get('mdp');
          
-                     var_dump("Recuperation des données dans la variable de session " . $login);
-                     var_dump($mdp);
+                       var_dump("Recuperation des données dans la variable de session " . $login);
+                       var_dump($mdp);
          
  //on recupere l'identifiant du visiteur        
                        $repo = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Visiteur');     
@@ -108,42 +108,17 @@ class ConsulterController extends Controller
 // Recherche d'un tuple par numéro d'id 
                        $unvisiteur = $repo->find($intrequete);
                  
-                 
-                 //1er tableau
-                 /*$query = $em->createQuery(
-                           'SELECT Fichefrais.id,Fichefrais.dateModif,Etat.libelle
-                            FROM Fichefrais 
-                            INNER JOIN Etat
-                            ON Fichefrais.id_etat_id = Etat.id
-                            INNER JOIN Visiteur
-                            ON Fichefrais.id_visiteur_id = Visiteur.id
-                            WHERE Visiteur.id = :identifiant'
-
-                    );
-                    $query->setParameter('identifiant', $unvisiteur);*/
-                    
                        
                        //1er tableau
-                    $queryforfait = $em->createQuery(
-                           'SELECT lf.quantite
-                            FROM GsbComptableBundle:Lignefraisforfait 
-                            INNER JOIN GsbComptableBundle:FraisForfait
-                            ON lf.lesfraisforfait_id=frais_forfait.id
-                            INNER JOIN FicheFrais
-                            ON lf.id_fiche_frais_id=fichefrais.id
-                            INNER JOIN Visiteur
-                            ON fraisforfait.id_visiteur_id=Visiteur.is
-                            WHERE Visiteur.id = :identifiant
-                            AND YEAR(FicheFrais.dateModif) = :annee
-                            AND MONTH(FicheFrais.dateModif) = :mois'
-
-                    );
-                    $queryforfait->setParameter('identifiant', $unvisiteur);
-                    $queryforfait->setParameter('annee', $annee);
-                    $queryforfait->setParameter('mois', $mois);
-                    
-                    
-                    $r=$queryforfait->Execute();
+                       $repofiche = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Fichefrais');
+                       $requetefiche = $repofiche->findFiche($mois,$annee,$intrequete);//toute la fiche
+                       $requeteidfiche = $repofiche->findidFiche($mois,$annee,$intrequete);//identifiant de la fiche
+                       
+                       //2 nd tableau :ligne frais hors forfait
+                       $repohorsforfait = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Lignefraishorsforfait');
+                       $requetehorsforfait = $repohorsforfait->findhorsforfait($requeteidfiche);
+                       
+                       var_dump($requetehorsforfait . ' ' .$requetefiche);
                  
              }
              

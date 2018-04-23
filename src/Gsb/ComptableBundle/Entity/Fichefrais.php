@@ -68,7 +68,7 @@ class Fichefrais
    /**
     * 
     * @ORM\ManyToOne(targetEntity="Gsb\ComptableBundle\Entity\Etat",cascade={"persist", "remove"})
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(name="idetat", referencedColumnName="id")
     */
     private $idEtat;
 

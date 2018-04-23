@@ -10,4 +10,24 @@ namespace Gsb\ComptableBundle\Repository;
  */
 class LignefraishorsforfaitRepository extends \Doctrine\ORM\EntityRepository
 {
+    
+    public function findhorsforfait($idFiche) {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+                   'SELECT *
+                    FROM GsbComptableBundle:Lignefraishorsforfait l
+                    WHERE f.idFicheFrais = :identifiant'
+                  );
+                       
+                   $query->setParameter('identifiant', $idFiche);
+                   
+                   
+                   $requetefiche=$query->getSingleScalarResult();
+                       
+                    $intrequetefiche = (int)$requetefiche;
+                    $repofiche = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Fichefrais');
+                    $return = $repofiche->find($intrequetefiche);
+                    
+                    return $return;
+    }
 }
