@@ -156,11 +156,28 @@ class FichefraisRepository extends \Doctrine\ORM\EntityRepository
     }
     public function findidFiche($mois,$annee,$idVisiteur) {
         
-        $test = (string)$idVisiteur;
-        var_dump('Trouver l identifiant de la fiche ' . $mois . ' ' . $annee . ' ' .$test);
+       // $test = (string)$idVisiteur;
+        var_dump('Trouver l identifiant de la fiche ' . $mois . ' ' . $annee . ' ' .$idVisiteur);
         
         $em = $this->getEntityManager();
         $query = $em->createQuery(
+                   'SELECT count(f.id)
+                    FROM GsbComptableBundle:FicheFrais f
+                    WHERE f.idVisiteur = :identifiant
+                    AND f.mois = :mois
+                    AND f.annee=:annee'
+                  );
+                       
+                   $query->setParameter('identifiant', $idVisiteur);
+                   $query->setParameter('mois' , $mois);
+                   $query->setParameter('annee' , $annee);
+                   
+                   $requeteexist=$query->getSingleScalarResult();
+                   
+               $intrequetefiche = 0;
+                   
+              if($requeteexist != 0){
+                  $query = $em->createQuery(
                    'SELECT f.id
                     FROM GsbComptableBundle:FicheFrais f
                     WHERE f.idVisiteur = :identifiant
@@ -172,14 +189,17 @@ class FichefraisRepository extends \Doctrine\ORM\EntityRepository
                    $query->setParameter('mois' , '04');
                    $query->setParameter('annee' , $annee);
                    
-                   $requetefiche=$query->getSingleScalarResult();
+                   $requetefiche=$query->getSingleScalarResult();  
+                   $intrequetefiche = (int)$requetefiche;
                    
-                   var_dump($requetefiche);
-                       
-                    $intrequetefiche = (int)$requetefiche;
-                    $repofiche = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Fichefrais');
-                    $return = $repofiche->find($intrequetefiche);
-                    
-                    return $return;
+                   
+                   //recuperation de la fiche sous forme d objet inutilisé ici
+                  //  $repofiche = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Fichefrais');
+                   // $return = $repofiche->find($intrequetefiche);
+                   
+              }     
+                   
+                 
+                    return $intrequetefiche;
     }
 }

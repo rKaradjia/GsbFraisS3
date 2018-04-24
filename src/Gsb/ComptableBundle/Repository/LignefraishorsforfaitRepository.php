@@ -22,7 +22,7 @@ class LignefraishorsforfaitRepository extends \Doctrine\ORM\EntityRepository
                    $query->setParameter('identifiant', $idFiche);
                    
                    
-                   $requetefiche=$query->getSingleScalarResult();
+                   $requetefiche=$query->getScalarResult();
                        
                     $intrequetefiche = (int)$requetefiche;
                     $repofiche = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Fichefrais');

@@ -67,8 +67,9 @@ class DefaultController extends Controller
                
                $requete = $repo->seconnecter($id, $mdp);
               
+               var_dump($requete);
             
-              if ( count($requete) == 1){
+              if ( $requete == 1){
                  /* $session = new Session();
                   $session->start();*/
                   $session = $request->getSession();

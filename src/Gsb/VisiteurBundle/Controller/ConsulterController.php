@@ -62,7 +62,18 @@ class ConsulterController extends Controller
 ))
 			 ->add('mois',  ChoiceType::class, array(
     'choices'  => array(
-        $tab
+        '01' => '01',
+         '02' => '02',
+         '03' => '03',
+         '04' => '04',
+         '05' => '05',
+         '06' => '06',
+         '07' => '07',
+         '08' => '08',
+         '09' => '09',
+         '10' => '10',
+         '11' => '11',
+         '12' => '12',
     ),
 ))
                          
@@ -104,15 +115,20 @@ class ConsulterController extends Controller
  //on recupere l'identifiant du visiteur        
                        $repo = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Visiteur');     
                        $requete = $repo->findUser($login,$mdp);
+                       
+                       print_r($requete);
                        $intrequete = (int)$requete;
+                       
+                       var_dump('Identifiant du visiteur lors de l execution de la requete ' . ' lors de la conversion '. $intrequete);
 // Recherche d'un tuple par numéro d'id 
-                       $unvisiteur = $repo->find($intrequete);
+                       //$unvisiteur = $repo->find($intrequete);
                  
                        
                        //1er tableau
                        $repofiche = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Fichefrais');
-                       $requetefiche = $repofiche->findFiche($mois,$annee,$intrequete);//toute la fiche
                        $requeteidfiche = $repofiche->findidFiche($mois,$annee,$intrequete);//identifiant de la fiche
+                       $requetefiche = $repofiche->findFiche($mois,$annee,$intrequete);//toute la fiche
+                      
                        
                        //2 nd tableau :ligne frais hors forfait
                        $repohorsforfait = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Lignefraishorsforfait');

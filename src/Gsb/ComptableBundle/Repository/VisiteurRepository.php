@@ -14,6 +14,7 @@ class VisiteurRepository extends \Doctrine\ORM\EntityRepository
     public function seconnecter($id, $mdp) {
         $em = $this->getEntityManager();// $this->getDoctrine()->getManager();      
 //On creer la requete 
+        var_dump( 'Se connecter ' . $id . ' ' .$mdp);
   
                $query = $em->createQuery(
                    'SELECT count(v.id)
@@ -25,7 +26,7 @@ class VisiteurRepository extends \Doctrine\ORM\EntityRepository
                    $query->setParameter('login', $id);
                    $query->setParameter('mdp' , $mdp);
                    
-                   return $query->getScalarResult();
+                   return $query->getSingleScalarResult();
     
     
     }
@@ -34,6 +35,10 @@ class VisiteurRepository extends \Doctrine\ORM\EntityRepository
         
         //cette fonction se base sur la recuperation du login stocké dans une variable via 
         //l'instance de session
+        
+        
+        var_dump('Identifiant de l utilisateur ' .$id . ' '.$mdp);
+        
         
         $em = $this->getEntityManager();// $this->getDoctrine()->getManager();      
 //On creer la requete 
@@ -48,7 +53,7 @@ class VisiteurRepository extends \Doctrine\ORM\EntityRepository
                    $query->setParameter('login', $id);
                    $query->setParameter('mdp' , $mdp);
                    
-                   return $query->getSingleScalarResult();
+                   return $query->getScalarResult();
     
     
     }
