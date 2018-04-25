@@ -134,6 +134,12 @@ class ConsulterController extends Controller
                        $repohorsforfait = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Lignefraishorsforfait');
                        $requetehorsforfait = $repohorsforfait->findhorsforfait($requeteidfiche);//ceci est un tableau
                        
+                       
+                       //3 eme tableau :ligne frais forfait
+                       $repoforfait = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Lignefraisforfait');
+                       $requeteforfait = $repoforfait->findforfait($requeteidfiche);//ceci est un tableau
+                       
+                       
                        echo 'avant le print r        ';
                        
                        echo 'LA FICHE';
@@ -155,7 +161,7 @@ class ConsulterController extends Controller
              
              
         }
-         return $this->render('GsbVisiteurBundle:Default:consulter.html.twig', array('requetefiche' => $requetefiche,'requetehorsforfait'=>$requetehorsforfait,'form' => $form->createView(),));
+         return $this->render('GsbVisiteurBundle:Default:consulter.html.twig', array('requetefiche' => $requetefiche,'requetehorsforfait'=>$requetehorsforfait,'requeteforfait' => $requeteforfait,'form' => $form->createView(),));
     }
 
 /* 

@@ -10,4 +10,27 @@ namespace Gsb\ComptableBundle\Repository;
  */
 class LignefraisforfaitRepository extends \Doctrine\ORM\EntityRepository
 {
+    
+    public function findforfait($idFiche) {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+                   'SELECT f.libelle,l.quantite,f.montant
+                    FROM GsbComptableBundle:Lignefraisforfait l
+                    JOIN GsbComptableBundle:Fraisforfait f
+                    WITH l.lesfraisforfait=f.id
+                    WHERE l.idFicheFrais = :identifiant'
+                  );
+                       
+                   $query->setParameter('identifiant', $idFiche);
+                   
+                   
+                   $requeteforfait=$query->getResult();
+                       
+                    /*$intrequetefiche = (int)$requetefiche;
+                    $repofiche = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Fichefrais');
+                    $return = $repofiche->find($intrequetefiche);*/
+                    
+                    return $requeteforfait;
+    }
+    
 }

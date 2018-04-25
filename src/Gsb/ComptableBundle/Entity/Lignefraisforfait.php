@@ -17,7 +17,7 @@ class Lignefraisforfait
      /**
      * 
      * @ORM\ManyToOne(targetEntity="Gsb\ComptableBundle\Entity\FraisForfait", cascade={"persist"})
-     * @ORM\JoinColumn(name="idetat", referencedColumnName="id")
+     * @ORM\JoinColumn(name="idfraisforfait", referencedColumnName="id")
      **/
     private $lesfraisforfait;
 
