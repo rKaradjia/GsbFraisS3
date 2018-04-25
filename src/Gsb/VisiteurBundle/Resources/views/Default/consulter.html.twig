@@ -23,7 +23,7 @@ Tableau de la fiche
                                 </tr>
                                 </thead>
                                 <tbody>
-                                
+                           {% if requetefiche is defined %}    
                                 {% for fiche in requetefiche %}
 
                                     <tr>
@@ -35,7 +35,7 @@ Tableau de la fiche
                                     </tr>
                                     
                                 {% endfor %}
-
+                            {% endif %}
                                 </tbody>
 </table>
                                 </br></br>    
@@ -52,7 +52,7 @@ Tableau de la fiche
                                 </tr>
                                 </thead>
                                 <tbody>
-                                
+                             {% if requetehorsforfait is defined %}   
                                 {% for horsforfait in requetehorsforfait %}
 
                                     <tr>
@@ -66,7 +66,7 @@ Tableau de la fiche
                                     </tr>
                                     
                                 {% endfor %}
-
+                              {% endif %}
                                 </tbody>
 </table>  
                                 
@@ -85,7 +85,7 @@ Tableau de la fiche
                                 </tr>
                                 </thead>
                                 <tbody>
-                                
+                             {% if requeteforfait is defined %}      
                                 {% for forfait in requeteforfait %}
 
                                     <tr>
@@ -99,7 +99,7 @@ Tableau de la fiche
                                     </tr>
                                     
                                 {% endfor %}
-
+                              {% endif %}
                                 </tbody>
 </table>                                  
                                 

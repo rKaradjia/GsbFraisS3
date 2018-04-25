@@ -101,11 +101,13 @@ class ConsulterController extends Controller
       // (Nous verrons la validation des objets en détail dans le prochain chapitre)
 
              if ($form->isValid()) {
-                 
+                 //recuperation des données saisies dans les champs
                  $mois = $form->get('mois')->getData();
                  $annee = $form->get('annee')->getData();
                  $session = $request->getSession();
          
+                 
+                 //recuperation des données de l'utilisateur de la variable session
                     $login=$session->get('login');
                     $mdp=$session->get('mdp');
          
@@ -132,7 +134,8 @@ class ConsulterController extends Controller
                        
                        //2 nd tableau :ligne frais hors forfait
                        $repohorsforfait = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Lignefraishorsforfait');
-                       $requetehorsforfait = $repohorsforfait->findhorsforfait($requeteidfiche);//ceci est un tableau
+                       $requetehorsforfait = $repohorsforfait->findhorsforfait($requeteidfiche);//ceci est un tableau en fonction de l'identifiant
+                                                                                                //de la fiche
                        
                        
                        //3 eme tableau :ligne frais forfait
@@ -154,6 +157,7 @@ class ConsulterController extends Controller
                                var_dump($unfraishorsforfait);
                            }*/
                      // echo $requetehorsforfait . ' '.$requetefiche;
+                       
                  
              }
              
@@ -161,7 +165,17 @@ class ConsulterController extends Controller
              
              
         }
-         return $this->render('GsbVisiteurBundle:Default:consulter.html.twig', array('requetefiche' => $requetefiche,'requetehorsforfait'=>$requetehorsforfait,'requeteforfait' => $requeteforfait,'form' => $form->createView(),));
+        
+        
+        if(isset($requetefiche)){
+            return $this->render('GsbVisiteurBundle:Default:consulter.html.twig', array('requetefiche' => $requetefiche,'requetehorsforfait'=>$requetehorsforfait,'requeteforfait' => $requeteforfait,'form' => $form->createView(),));
+        }else {
+            
+            return $this->render('GsbVisiteurBundle:Default:consulter.html.twig', array('form' => $form->createView(),));
+            
+        }
+        
+         
     }
 
 /* 
