@@ -138,8 +138,10 @@ class FichefraisRepository extends \Doctrine\ORM\EntityRepository
     public function findFiche($mois,$annee,$idVisiteur) {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                   'SELECT f
+                   'SELECT e.libelle,f.dateModif
                     FROM GsbComptableBundle:FicheFrais f
+                    JOIN GsbComptableBundle:Etat e
+                    WITH f.idEtat=e.id
                     WHERE f.idVisiteur = :identifiant
                     AND f.mois = :mois
                     AND f.annee=:annee'

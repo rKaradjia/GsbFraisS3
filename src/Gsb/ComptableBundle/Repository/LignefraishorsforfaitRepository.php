@@ -14,20 +14,20 @@ class LignefraishorsforfaitRepository extends \Doctrine\ORM\EntityRepository
     public function findhorsforfait($idFiche) {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                   'SELECT *
+                   'SELECT l.libelle,l.montant,l.date
                     FROM GsbComptableBundle:Lignefraishorsforfait l
-                    WHERE f.idFicheFrais = :identifiant'
+                    WHERE l.idFicheFrais = :identifiant'
                   );
                        
                    $query->setParameter('identifiant', $idFiche);
                    
                    
-                   $requetefiche=$query->getScalarResult();
+                   $requetehorsforfait=$query->getResult();
                        
-                    $intrequetefiche = (int)$requetefiche;
+                    /*$intrequetefiche = (int)$requetefiche;
                     $repofiche = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Fichefrais');
-                    $return = $repofiche->find($intrequetefiche);
+                    $return = $repofiche->find($intrequetefiche);*/
                     
-                    return $return;
+                    return $requetehorsforfait;
     }
 }

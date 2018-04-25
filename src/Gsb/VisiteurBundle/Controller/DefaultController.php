@@ -82,6 +82,10 @@ class DefaultController extends Controller
                   dump("RESERVER");
                   return $this->redirectToRoute('sucesslogin');
                   
+              }else {
+                  $request->getSession()
+                            ->getFlashBag()
+                            ->add('error', 'Identifiant ou mot de passe incorrect');
               }
            
          }

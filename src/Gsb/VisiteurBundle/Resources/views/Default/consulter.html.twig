@@ -7,3 +7,35 @@ annee{{form_widget(form.annee)}}
 
 {{form_widget(form.Save)}}
 {{ form_end(form) }}
+
+
+<?php  
+print_r($requetefiche);
+?>
+
+<table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date de Modification</th>
+                                    <th>Etat</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% set i = 1 %}
+                                {% for fiche in requetefiche %}
+
+                                    <tr>
+                                   {#     {% set explode =  fiche.dateModif|split('-') %}#}
+                                        <td><span class="badge badge-primary">{{ i }}</span></td>
+                                        <td>{{ fiche.dateModif|date('Y-m-d') }}</td>
+                                     {#   <td>{{ fiche.etat.libelle }}</td>#}
+                                        
+                                       {# <td class="color-primary">{{ explode[2]~'-'~explode[1]~'-'~explode[0] }}</td>#}
+                                    </tr>
+                                    {% set i = i + 1 %}
+                                {% endfor %}
+
+                                </tbody>
+</table>

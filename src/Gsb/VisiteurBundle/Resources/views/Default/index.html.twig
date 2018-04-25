@@ -4,7 +4,13 @@
   <head>
     <title>Intranet du Laboratoire Galaxy-Swiss Bourdin</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <link href="./styles/styles.css" rel="stylesheet" type="text/css" />
+    <style>
+.alert-error {
+  color: black;
+  background-color: red;
+  border-color: #c3e6cb;
+}
+</style>
     <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
   </head>
   <body>
@@ -17,6 +23,13 @@
       <h2>Identification utilisateur</h2>
 {{form(form)}}{# empty Twig template #}
   <!-- Division pour le pied de page -->
+  {% if app.session.flashBag.has('error') %}
+        <div class="alert-error">
+            {% for msg in app.session.flashBag.get('error') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
         </div>
   </body>
 </html>
