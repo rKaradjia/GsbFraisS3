@@ -37,7 +37,7 @@ class VisiteurRepository extends \Doctrine\ORM\EntityRepository
         //l'instance de session
         
         
-        var_dump('Identifiant de l utilisateur ' .$id . ' '.$mdp);
+       // var_dump('Identifiant de l utilisateur ' .$id . ' '.$mdp);
         
         
         $em = $this->getEntityManager();// $this->getDoctrine()->getManager();      

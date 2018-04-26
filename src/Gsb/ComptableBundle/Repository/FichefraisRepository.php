@@ -61,7 +61,7 @@ class FichefraisRepository extends \Doctrine\ORM\EntityRepository
                     $nbLigne = $query->getScalarResult();
                     $intrequete = (int)$nbLigne;
                     
-                    var_dump("Identifiant de la fiche recherche di TROUVE " .$intrequete);
+                 //   var_dump("Identifiant de la fiche recherche di TROUVE " .$intrequete);
             //$fichefrais = new \Gsb\ComptableBundle\Entity\Fichefrais
         
                
@@ -159,7 +159,7 @@ class FichefraisRepository extends \Doctrine\ORM\EntityRepository
     public function findidFiche($mois,$annee,$idVisiteur) {
         
        // $test = (string)$idVisiteur;
-        var_dump('Trouver l identifiant de la fiche ' . $mois . ' ' . $annee . ' ' .$idVisiteur);
+     //   var_dump('Trouver l identifiant de la fiche ' . $mois . ' ' . $annee . ' ' .$idVisiteur);
         
         $em = $this->getEntityManager();
         $query = $em->createQuery(

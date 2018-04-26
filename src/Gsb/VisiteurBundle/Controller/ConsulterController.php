@@ -84,7 +84,7 @@ class ConsulterController extends Controller
                         ->add('Save', SubmitType::class);
 			
 	$form = $formBuilder->getForm();
-       var_dump('avant le submit');
+      // var_dump('avant le submit');
 	// La requête est en POST
 	
 	$form->handleRequest($request);
@@ -94,7 +94,7 @@ class ConsulterController extends Controller
         
         if ($form->isSubmitted()) {
           
-          var_dump('apres le submit et avant le isvalid');
+         // var_dump('apres le submit et avant le isvalid');
  
           
       // On vérifie que les valeurs entrées sont correctes
@@ -111,17 +111,17 @@ class ConsulterController extends Controller
                     $login=$session->get('login');
                     $mdp=$session->get('mdp');
          
-                       var_dump("Recuperation des données dans la variable de session " . $login);
-                       var_dump($mdp);
+                       //var_dump("Recuperation des données dans la variable de session " . $login);
+                     // var_dump($mdp);
          
  //on recupere l'identifiant du visiteur        
                        $repo = $this->getDoctrine()->getManager()->getRepository('GsbComptableBundle:Visiteur');     
                        $requete = $repo->findUser($login,$mdp);
                        
-                       print_r($requete);
+                      // print_r($requete);
                        $intrequete = (int)$requete;
                        
-                       var_dump('Identifiant du visiteur lors de l execution de la requete ' . ' lors de la conversion '. $intrequete);
+                       //var_dump('Identifiant du visiteur lors de l execution de la requete ' . ' lors de la conversion '. $intrequete);
 // Recherche d'un tuple par numéro d'id 
                        //$unvisiteur = $repo->find($intrequete);
                  
@@ -143,12 +143,12 @@ class ConsulterController extends Controller
                        $requeteforfait = $repoforfait->findforfait($requeteidfiche);//ceci est un tableau
                        
                        
-                       echo 'avant le print r        ';
+                       /*echo 'avant le print r        ';
                        
                        echo 'LA FICHE';
                        print_r($requetefiche);
                        echo 'HORS FORFAIT';
-                       print_r($requetehorsforfait);
+                       print_r($requetehorsforfait);*/
                        
                        /*foreach ($requetefiche as $unefiche){
                            var_dump($unefiche);

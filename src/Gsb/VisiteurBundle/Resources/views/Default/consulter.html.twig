@@ -1,7 +1,7 @@
 {{ form_start(form) }}
 
-<h2>Veuillez renseigné</h2>
-<h4>Saisir</h4>
+<h2>Consultation d'une fiche de frais</h2>
+<h4>Veuillez saisir le mois et l'année</h4>
 mois{{form_widget(form.mois)}}
 annee{{form_widget(form.annee)}}
 
@@ -9,9 +9,7 @@ annee{{form_widget(form.annee)}}
 {{ form_end(form) }}
 
 
-<?php  
-print_r($requetefiche);
-?>
+
 Tableau de la fiche
 <table class="table-bordered">   <!--Tableau de la fiche-->
                                 <thead>
